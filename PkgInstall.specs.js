@@ -68,4 +68,15 @@ describe('Package Installer', function() {
     });
   });
   
+  describe('Output Validation', function() {
+    it('with Input Example 1', function(){
+      var input = ['KittenService:CamelCaser','CamelCaser:'];
+      expect(new packageInstallerEx(input).dependencyCheck()).toEqual('CamelCaser, KittenService');
+    });
+
+    it('with Input Example 2', function() {
+      var input = ['KittenService:','Letmeme:Cyberportal','Cyberportal:Ice','CamelCaser:KittenService','Fraudstream:Letmeme','Ice:'];
+      expect(new packageInstallerEx(input).dependencyCheck()).toEqual('KittenService, Ice, Cyberportal, Letmeme, CamelCaser, Fraudstream');
+    });
+  });
 });
