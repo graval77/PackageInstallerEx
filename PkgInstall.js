@@ -47,6 +47,9 @@ var packageInstallerEx = function (input) {
       mainPkg.push(package);
       var pkg = indvlPkgs[package];
       for(var i=0;i<pkg.length;i++){
+        if (mainPkg.indexOf(pkg[i]) >= 0) {
+          throw 'Dependency Specification Contains a Cycle';
+        }
         sort(pkg[i], mainPkg);
       }
       ordered[package] = true;
