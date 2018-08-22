@@ -58,4 +58,14 @@ describe('Package Installer', function() {
       expect(new packageInstallerEx(input).dependencyCheck()).toEqual('Camel Caser, Kitten Service');
     });  
   });
+  
+  describe('Invalid Dependency Specification', function() {
+    it('because it contains a cycle', function () {
+      expect(function () {
+        var input = packageInstallerEx(['a:', 'b:c','c:d','e:a','f:','d:b']);
+        input.dependencyCheck();
+      }).toThrow('Dependency Specification Contains a Cycle');
+    });
+  });
+  
 });
